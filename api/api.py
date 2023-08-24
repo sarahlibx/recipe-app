@@ -11,4 +11,4 @@ def get_current_time():
 
 @app.route('/whoisthegreatest')
 def get_greatest():
-    return {'greatest': 'Ann Cascarano'}
+    return {'name': 'Ann Cascarano'}

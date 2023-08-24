@@ -4,6 +4,7 @@ import "./App.css";
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
+  const [greatest, setGreatest] = useState("");
 
   useEffect(() => {
     const fetchCurrentTime = async () => {
@@ -13,6 +14,15 @@ function App() {
     };
     fetchCurrentTime();
   }, []);
+
+  const handleOnClickGreatest = () => {
+    const fetchGreatest = async () => {
+      const response = await fetch("/whoisthegreatest");
+      const data = await response.json();
+      setGreatest(data);
+    };
+    fetchGreatest();
+  };
 
   const options = {
     year: "numeric",
@@ -30,6 +40,9 @@ function App() {
         <h1>Ann experiments with Flask and React! Woo!</h1>
       </header>
       {formatTime}
+
+      <button onClick={handleOnClickGreatest}>Find out who is the Greatest by clicking here!</button>
+      {greatest && <h2>{greatest.name} is the Greatest!</h2>}
     </div>
   );
 }
