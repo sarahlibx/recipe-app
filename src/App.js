@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-// import RecipeList from "./components/RecipeList";
 import RecipeFull from "./components/RecipeFull";
 import NewRecipeForm from "./components/NewRecipeForm";
 import RecipeExcerpt from "./components/RecipeExcerpt";
@@ -147,11 +146,6 @@ function App() {
           onUpdateForm={onUpdateForm}
         />
       )}
-      <div className='RecipeList'>
-        {recipes.map((recipe) => (
-          <RecipeExcerpt key={recipe.id} recipe={recipe} handleSelectRecipe={handleSelectRecipe} />
-        ))}
-      </div>
       {selectedRecipe && (
         <RecipeFull
           selectedRecipe={selectedRecipe}
@@ -160,6 +154,13 @@ function App() {
           handleUpdateRecipe={handleUpdateRecipe}
           handleUnselectRecipe={handleUnselectRecipe}
         />
+      )}
+      {!selectedRecipe && !showNewRecipeForm && (
+        <div className='RecipeList'>
+          {recipes.map((recipe) => (
+            <RecipeExcerpt key={recipe.id} recipe={recipe} handleSelectRecipe={handleSelectRecipe} />
+          ))}
+        </div>
       )}
     </div>
   );
