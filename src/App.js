@@ -1,7 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import RecipeList from "./RecipeList";
-import RecipeFull from "./RecipeFull";
+// import RecipeList from "./components/RecipeList";
+import RecipeFull from "./components/RecipeFull";
+import NewRecipeForm from "./components/NewRecipeForm";
+import RecipeExcerpt from "./components/RecipeExcerpt";
 import "./App.css";
 
 function App() {
@@ -117,55 +119,47 @@ function App() {
     }
   };
 
+  const handleSelectRecipe = (recipe) => {
+    setSelectedRecipe(recipe);
+  };
+
+  const handleUnselectRecipe = () => {
+    setSelectedRecipe(null);
+  };
+
+  const hideRecipeForm = () => {
+    setShowNewRecipeForm(false);
+  };
+
+  const showRecipeForm = () => {
+    setShowNewRecipeForm(true);
+  };
+
   return (
     <div className='RecipeApp'>
       <h1>Recipe App</h1>
-      <button onClick={() => setShowNewRecipeForm(true)}>Add New Recipe</button>
+      <button onClick={showRecipeForm}>Add New Recipe</button>
       {showNewRecipeForm && (
-        <div className='RecipeDetail'>
-          <h2>New Recipe</h2>
-          <button onClick={() => setShowNewRecipeForm(false)}>Close</button>
-          <form onSubmit={(e) => handleNewRecipe(e, newRecipe)}>
-            <label>Title</label>
-            <input type='text' name='title' value={newRecipe.title} onChange={(e) => onUpdateForm(e, "new")} />
-            <label>Ingredients</label>
-            <textarea name='ingredients' value={newRecipe.ingredients} onChange={(e) => onUpdateForm(e, "new")} />
-            <label>Instructions</label>
-            <textarea name='instructions' value={newRecipe.instructions} onChange={(e) => onUpdateForm(e, "new")} />
-            <label>Servings</label>
-            <input type='number' name='servings' value={newRecipe.servings} onChange={(e) => onUpdateForm(e, "new")} />
-            <button type='submit'>Create New Recipe</button>
-          </form>
-        </div>
+        <NewRecipeForm
+          newRecipe={newRecipe}
+          hideRecipeForm={hideRecipeForm}
+          handleNewRecipe={handleNewRecipe}
+          onUpdateForm={onUpdateForm}
+        />
       )}
       <div className='RecipeList'>
         {recipes.map((recipe) => (
-          <div key={recipe.id} className='RecipeItem'>
-            {console.log(recipe)}
-            <h2>{recipe.title}</h2>
-            <button onClick={() => setSelectedRecipe(recipe)}>Edit</button>
-            <p>Servings: {recipe.servings}</p>
-            <p>Ingredients: {recipe.ingredients}</p>
-          </div>
+          <RecipeExcerpt key={recipe.id} recipe={recipe} handleSelectRecipe={handleSelectRecipe} />
         ))}
       </div>
       {selectedRecipe && (
-        <div className='RecipeDetail'>
-          <h2>Edit Recipe</h2>
-          <button onClick={() => setSelectedRecipe(null)}>Close</button>
-          <button onClick={() => handleDeleteRecipe(selectedRecipe.id)}>Delete</button>
-          <form onSubmit={(e) => handleUpdateRecipe(e, selectedRecipe)}>
-            <label>Title</label>
-            <input type='text' name='title' value={selectedRecipe.title} onChange={(e) => onUpdateForm(e, "update")} />
-            <label>Ingredients</label>
-            <textarea name='ingredients' value={selectedRecipe.ingredients} onChange={(e) => onUpdateForm(e, "update")} />
-            <label>Instructions</label>
-            <textarea name='instructions' value={selectedRecipe.instructions} onChange={(e) => onUpdateForm(e, "update")} />
-            <label>Servings</label>
-            <input type='number' name='servings' value={selectedRecipe.servings} onChange={(e) => onUpdateForm(e, "update")} />
-            <button type='submit'>Update</button>
-          </form>
-        </div>
+        <RecipeFull
+          selectedRecipe={selectedRecipe}
+          onUpdateForm={onUpdateForm}
+          handleDeleteRecipe={handleDeleteRecipe}
+          handleUpdateRecipe={handleUpdateRecipe}
+          handleUnselectRecipe={handleUnselectRecipe}
+        />
       )}
     </div>
   );
