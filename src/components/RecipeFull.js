@@ -1,22 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+import EditRecipeForm from "./EditRecipeForm";
 
-const RecipeFull = ({ selectedRecipe, onUpdateForm, handleDeleteRecipe, handleUnselectRecipe, handleUpdateRecipe }) => {
+const RecipeFull = ({
+  selectedRecipe,
+  handleSelectRecipe,
+  handleUnselectRecipe,
+  handleDeleteRecipe,
+  onUpdateForm,
+  handleUpdateRecipe
+}) => {
+  const [editing, setEditing] = useState(false);
+
+  const handleCancel = () => {
+    setEditing(false);
+  };
   return (
-    <div className='RecipeDetail'>
-      <h2>Edit Recipe</h2>
-      <button onClick={handleUnselectRecipe}>Close</button>
-      <button onClick={() => handleDeleteRecipe(selectedRecipe.id)}>Delete</button>
-      <form onSubmit={(e) => handleUpdateRecipe(e, selectedRecipe)}>
-        <label>Title</label>
-        <input type='text' name='title' value={selectedRecipe.title} onChange={(e) => onUpdateForm(e, "update")} />
-        <label>Ingredients</label>
-        <textarea name='ingredients' value={selectedRecipe.ingredients} onChange={(e) => onUpdateForm(e, "update")} />
-        <label>Instructions</label>
-        <textarea name='instructions' value={selectedRecipe.instructions} onChange={(e) => onUpdateForm(e, "update")} />
-        <label>Servings</label>
-        <input type='number' name='servings' value={selectedRecipe.servings} onChange={(e) => onUpdateForm(e, "update")} />
-        <button type='submit'>Update</button>
-      </form>
+    <div className='RecipeDetails'>
+      {editing ? (
+        <EditRecipeForm
+          selectedRecipe={selectedRecipe}
+          onUpdateForm={onUpdateForm}
+          handleDeleteRecipe={handleDeleteRecipe}
+          handleUnselectRecipe={handleUnselectRecipe}
+          handleUpdateRecipe={handleUpdateRecipe}
+        />
+      ) : (
+        <>
+          <h2>{selectedRecipe.title}</h2>
+          <button onClick={() => setEditing(true)}>Edit</button>
+
+          <button onClick={() => handleUnselectRecipe(selectedRecipe)}>Close</button>
+          <p>Ingredients</p>
+
+          <ul>
+            {selectedRecipe.ingredients.split(",").map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+          <p>{selectedRecipe.instructions}</p>
+          <p>Servings: {selectedRecipe.servings}</p>
+        </>
+      )}
     </div>
   );
 };

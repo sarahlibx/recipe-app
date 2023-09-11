@@ -100,14 +100,12 @@ function App() {
   };
 
   const handleDeleteRecipe = async (recipeId) => {
-    // hit the API with delete request
     try {
       const response = await fetch(`/api/recipes/${selectedRecipe.id}`, {
         method: "DELETE"
       });
 
       if (response.ok) {
-        // update state
         setRecipes(recipes.filter((recipe) => recipe.id !== recipeId));
         setSelectedRecipe(null);
       } else {
@@ -153,6 +151,7 @@ function App() {
           handleDeleteRecipe={handleDeleteRecipe}
           handleUpdateRecipe={handleUpdateRecipe}
           handleUnselectRecipe={handleUnselectRecipe}
+          handleSelectRecipe={handleSelectRecipe}
         />
       )}
       {!selectedRecipe && !showNewRecipeForm && (
