@@ -20,11 +20,6 @@ class Recipe(db.Model):
 # with app.app_context():
 #   db.create_all()
 #   db.session.commit()
-# Will return a JSON payload like: {"time": 1589144576.033372}
-
-@app.route('/whoisthegreatest')
-def get_greatest():
-    return {'name': 'Ann Cascarano'}
 
 @app.route('/api/recipes', methods=['GET'])
 def get_all_recipes():
@@ -52,7 +47,18 @@ def add_recipe():
     )
     db.session.add(new_recipe)
     db.session.commit()
-    return jsonify({'message': 'Recipe added successfully'})
+
+    # Serialize the new recipe and return it as JSON
+    new_recipe_data = {
+        'id': new_recipe.id, 
+        'title': new_recipe.title,
+        'ingredients': new_recipe.ingredients,
+        'instructions': new_recipe.instructions,
+        'servings': new_recipe.servings
+    }
+
+    return jsonify({'message': 'Recipe added successfully', 'recipe': new_recipe_data})
+
 
 # Route to update a recipe
 @app.route('/api/recipes/<int:recipe_id>', methods=['PUT'])
@@ -68,7 +74,16 @@ def update_recipe(recipe_id):
     recipe.servings = data['servings']
 
     db.session.commit()
-    return jsonify({'message': 'Recipe updated successfully'})
+ # Serialize the updated recipe and return it as JSON
+    updated_recipe_data = {
+        'id': recipe.id,
+        'title': recipe.title,
+        'ingredients': recipe.ingredients,
+        'instructions': recipe.instructions,
+        'servings': recipe.servings
+    }
+
+    return jsonify({'message': 'Recipe updated successfully', 'recipe': updated_recipe_data})
 
 # Route to delete a recipe
 @app.route('/api/recipes/<int:recipe_id>', methods=['DELETE'])

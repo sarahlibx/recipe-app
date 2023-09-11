@@ -7,9 +7,13 @@ import "./App.css";
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [newRecipe, setNewRecipe] = useState(null);
-
-  //TODO - Make new form for newRecipe -
+  const [showNewRecipeForm, setShowNewRecipeForm] = useState(false);
+  const [newRecipe, setNewRecipe] = useState({
+    title: "",
+    ingredients: "",
+    instructions: "",
+    servings: 1
+  });
 
   useEffect(() => {
     const fetchAllRecipes = async () => {
@@ -20,10 +24,10 @@ function App() {
     fetchAllRecipes();
   }, []);
 
-  const handleUpdateRecipe = async (e, updatedRecipe) => {
+  const handleUpdateRecipe = async (e, selectedRecipe) => {
     e.preventDefault();
-    const { title, ingredients, instructions, servings } = updatedRecipe;
-    const response = await fetch(`/api/recipes/${updatedRecipe.id}`, {
+    const { id, title, ingredients, instructions, servings } = selectedRecipe;
+    const response = await fetch(`/api/recipes/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -37,11 +41,9 @@ function App() {
       // Update the recipe in the frontend
       setRecipes(
         recipes.map((recipe) => {
-          if (recipe.id === updatedRecipe.id) {
-            recipe.title = title;
-            recipe.ingredients = ingredients;
-            recipe.instructions = instructions;
-            recipe.servings = servings;
+          if (recipe.id === id) {
+            // Return the saved data from the db
+            return data.recipe;
           }
           return recipe;
         })
@@ -53,32 +55,86 @@ function App() {
     setSelectedRecipe(null);
   };
 
-  const onUpdateForm = (e) => {
+  const onUpdateForm = (e, action = "new") => {
     const { name, value } = e.target;
-    setSelectedRecipe({
-      ...selectedRecipe,
-      [name]: value
+    if (action === "update") {
+      setSelectedRecipe({
+        ...selectedRecipe,
+        [name]: value
+      });
+    } else if (action === "new") {
+      setNewRecipe({ ...newRecipe, [name]: value });
+      console.log(newRecipe);
+    }
+  };
+
+  const handleNewRecipe = async (e, newRecipe) => {
+    e.preventDefault();
+    console.log("Adding recipe");
+
+    const { title, ingredients, instructions, servings } = newRecipe;
+    const response = await fetch("/api/recipes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ title, ingredients, instructions, servings })
     });
+    if (response.ok) {
+      const data = await response.json();
+
+      console.log({ data });
+      // Update the recipe in the frontend
+      setRecipes([...recipes, data.recipe]);
+      setNewRecipe({
+        title: "",
+        ingredients: "",
+        instructions: "",
+        servings: 1
+      });
+      setShowNewRecipeForm(false);
+    } else {
+      console.error("Recipe update failed.");
+    }
+  };
+
+  const handleDeleteRecipe = async (recipeId) => {
+    // hit the API with delete request
+    try {
+      const response = await fetch(`/api/recipes/${selectedRecipe.id}`, {
+        method: "DELETE"
+      });
+
+      if (response.ok) {
+        // update state
+        setRecipes(recipes.filter((recipe) => recipe.id !== recipeId));
+        setSelectedRecipe(null);
+      } else {
+        console.error("Welp - could not delete recipe.");
+      }
+    } catch (e) {
+      console.error("Something went wrong:", e);
+    }
   };
 
   return (
     <div className='RecipeApp'>
       <h1>Recipe App</h1>
-      <button onClick={() => setNewRecipe({})}>Add New Recipe</button>
-      {newRecipe && (
+      <button onClick={() => setShowNewRecipeForm(true)}>Add New Recipe</button>
+      {showNewRecipeForm && (
         <div className='RecipeDetail'>
           <h2>New Recipe</h2>
-          <button onClick={() => setNewRecipe(null)}>Close</button>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <button onClick={() => setShowNewRecipeForm(false)}>Close</button>
+          <form onSubmit={(e) => handleNewRecipe(e, newRecipe)}>
             <label>Title</label>
-            <input type='text' name='title' />
+            <input type='text' name='title' value={newRecipe.title} onChange={(e) => onUpdateForm(e, "new")} />
             <label>Ingredients</label>
-            <textarea name='ingredients' />
+            <textarea name='ingredients' value={newRecipe.ingredients} onChange={(e) => onUpdateForm(e, "new")} />
             <label>Instructions</label>
-            <textarea name='instructions' />
+            <textarea name='instructions' value={newRecipe.instructions} onChange={(e) => onUpdateForm(e, "new")} />
             <label>Servings</label>
-            <input type='number' name='servings' />
-            <button type='submit'>Update</button>
+            <input type='number' name='servings' value={newRecipe.servings} onChange={(e) => onUpdateForm(e, "new")} />
+            <button type='submit'>Create New Recipe</button>
           </form>
         </div>
       )}
@@ -86,7 +142,8 @@ function App() {
         {recipes.map((recipe) => (
           <div key={recipe.id} className='RecipeItem'>
             {console.log(recipe)}
-            <h2 onClick={() => setSelectedRecipe(recipe)}>{recipe.title}</h2>
+            <h2>{recipe.title}</h2>
+            <button onClick={() => setSelectedRecipe(recipe)}>Edit</button>
             <p>Servings: {recipe.servings}</p>
             <p>Ingredients: {recipe.ingredients}</p>
           </div>
@@ -96,15 +153,16 @@ function App() {
         <div className='RecipeDetail'>
           <h2>Edit Recipe</h2>
           <button onClick={() => setSelectedRecipe(null)}>Close</button>
+          <button onClick={() => handleDeleteRecipe(selectedRecipe.id)}>Delete</button>
           <form onSubmit={(e) => handleUpdateRecipe(e, selectedRecipe)}>
             <label>Title</label>
-            <input type='text' name='title' value={selectedRecipe.title} onChange={onUpdateForm} />
+            <input type='text' name='title' value={selectedRecipe.title} onChange={(e) => onUpdateForm(e, "update")} />
             <label>Ingredients</label>
-            <textarea name='ingredients' value={selectedRecipe.ingredients} onChange={onUpdateForm} />
+            <textarea name='ingredients' value={selectedRecipe.ingredients} onChange={(e) => onUpdateForm(e, "update")} />
             <label>Instructions</label>
-            <textarea name='instructions' value={selectedRecipe.instructions} onChange={onUpdateForm} />
+            <textarea name='instructions' value={selectedRecipe.instructions} onChange={(e) => onUpdateForm(e, "update")} />
             <label>Servings</label>
-            <input type='number' name='servings' value={selectedRecipe.servings} onChange={onUpdateForm} />
+            <input type='number' name='servings' value={selectedRecipe.servings} onChange={(e) => onUpdateForm(e, "update")} />
             <button type='submit'>Update</button>
           </form>
         </div>
