@@ -1,35 +1,31 @@
 import React, { useState } from "react";
 import EditRecipeForm from "./EditRecipeForm";
 
-const RecipeFull = ({
-  selectedRecipe,
-  handleSelectRecipe,
-  handleUnselectRecipe,
-  handleDeleteRecipe,
-  onUpdateForm,
-  handleUpdateRecipe
-}) => {
+const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, onUpdateForm, handleUpdateRecipe }) => {
   const [editing, setEditing] = useState(false);
 
   const handleCancel = () => {
     setEditing(false);
   };
   return (
-    <div className='RecipeDetails'>
+    <div className='recipe-details'>
       {editing ? (
         <EditRecipeForm
           selectedRecipe={selectedRecipe}
           onUpdateForm={onUpdateForm}
           handleDeleteRecipe={handleDeleteRecipe}
-          handleUnselectRecipe={handleUnselectRecipe}
+          handleCancel={handleCancel}
           handleUpdateRecipe={handleUpdateRecipe}
         />
       ) : (
-        <>
+        <article>
           <h2>{selectedRecipe.title}</h2>
-          <button onClick={() => setEditing(true)}>Edit</button>
 
-          <button onClick={() => handleUnselectRecipe(selectedRecipe)}>Close</button>
+          <button onClick={() => setEditing(true)}>Edit</button>
+          <button className='close-button' onClick={() => handleUnselectRecipe(selectedRecipe)}>
+            Close
+          </button>
+
           <p>Ingredients</p>
 
           <ul>
@@ -39,7 +35,7 @@ const RecipeFull = ({
           </ul>
           <p>{selectedRecipe.instructions}</p>
           <p>Servings: {selectedRecipe.servings}</p>
-        </>
+        </article>
       )}
     </div>
   );

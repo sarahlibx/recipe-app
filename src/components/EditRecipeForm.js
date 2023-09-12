@@ -1,12 +1,18 @@
 import React from "react";
 
-const EditRecipeForm = ({ selectedRecipe, onUpdateForm, handleDeleteRecipe, handleUnselectRecipe, handleUpdateRecipe }) => {
+const EditRecipeForm = ({ selectedRecipe, onUpdateForm, handleDeleteRecipe, handleCancel, handleUpdateRecipe }) => {
   return (
-    <div className='RecipeDetail'>
-      <h2>Edit {selectedRecipe.title}</h2>
+    <div className='recipe-form edit-form'>
+      <h2>Edit "{selectedRecipe.title}"</h2>
       {console.log(selectedRecipe)}
-      <button onClick={handleUnselectRecipe}>Cancel</button>
-      <button onClick={() => handleDeleteRecipe(selectedRecipe.id)}>Delete</button>
+      <div className='edit-form-buttons'>
+        <button className='cancel-button' onClick={handleCancel}>
+          Cancel
+        </button>
+        <button className='delete-button' onClick={() => handleDeleteRecipe(selectedRecipe.id)}>
+          Delete
+        </button>
+      </div>
 
       <form onSubmit={(e) => handleUpdateRecipe(e, selectedRecipe)}>
         <label>Title</label>

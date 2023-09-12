@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import RecipeFull from "./components/RecipeFull";
 import NewRecipeForm from "./components/NewRecipeForm";
 import RecipeExcerpt from "./components/RecipeExcerpt";
+import Header from "./components/Header";
 import "./App.css";
 
 function App() {
@@ -135,12 +136,12 @@ function App() {
 
   const showRecipeForm = () => {
     setShowNewRecipeForm(true);
+    setSelectedRecipe(null);
   };
 
   return (
-    <div className='RecipeApp'>
-      <h1>Recipe App</h1>
-      <button onClick={showRecipeForm}>Add New Recipe</button>
+    <div className='recipe-app'>
+      <Header showRecipeForm={showRecipeForm} />
       {showNewRecipeForm && (
         <NewRecipeForm
           newRecipe={newRecipe}
@@ -160,7 +161,7 @@ function App() {
         />
       )}
       {!selectedRecipe && !showNewRecipeForm && (
-        <div className='RecipeList'>
+        <div className='recipe-list'>
           {recipes.map((recipe) => (
             <RecipeExcerpt key={recipe.id} recipe={recipe} handleSelectRecipe={handleSelectRecipe} />
           ))}
