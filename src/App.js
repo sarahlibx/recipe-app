@@ -13,6 +13,8 @@ function App() {
     title: "",
     ingredients: "",
     instructions: "",
+    description: "",
+    imageUrl: "",
     servings: 1
   });
 
@@ -27,13 +29,13 @@ function App() {
 
   const handleUpdateRecipe = async (e, selectedRecipe) => {
     e.preventDefault();
-    const { id, title, ingredients, instructions, servings } = selectedRecipe;
+    const { id, title, ingredients, instructions, servings, image_url, description } = selectedRecipe;
     const response = await fetch(`/api/recipes/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ title, ingredients, instructions, servings })
+      body: JSON.stringify({ title, ingredients, instructions, servings, description, image_url })
     });
 
     if (response.ok) {
@@ -73,14 +75,15 @@ function App() {
     e.preventDefault();
     console.log("Adding recipe");
 
-    const { title, ingredients, instructions, servings } = newRecipe;
+    const { title, ingredients, instructions, servings, description, image_url } = newRecipe;
     const response = await fetch("/api/recipes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ title, ingredients, instructions, servings })
+      body: JSON.stringify({ title, ingredients, instructions, servings, description, image_url })
     });
+
     if (response.ok) {
       const data = await response.json();
 
@@ -91,6 +94,8 @@ function App() {
         title: "",
         ingredients: "",
         instructions: "",
+        description: "",
+        imageUrl: "",
         servings: 1
       });
       setShowNewRecipeForm(false);

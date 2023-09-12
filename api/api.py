@@ -12,19 +12,17 @@ class Recipe(db.Model):
     title = db.Column(db.String(100), nullable=False)
     ingredients = db.Column(db.String(500), nullable=False)
     instructions = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text, nullable=True, default='Delicious. You need to try it!')
+    image_url = db.Column(db.String(500), nullable=True, default="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80")
     servings = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return f"Recipe(id={self.id}, title='{self.title}', servings={self.servings})"
 
 # with app.app_context():
-#   db.create_all()
-#   db.session.commit()
-# Will return a JSON payload like: {"time": 1589144576.033372}
+#     db.create_all()
+#     db.session.commit()
 
-@app.route('/whoisthegreatest')
-def get_greatest():
-    return {'name': 'Ann Cascarano'}
 
 @app.route('/api/recipes', methods=['GET'])
 def get_all_recipes():
@@ -36,6 +34,8 @@ def get_all_recipes():
             'title': recipe.title,
             'ingredients': recipe.ingredients,
             'instructions': recipe.instructions,
+            'description': recipe.description,
+            'image_url': recipe.image_url,
             'servings': recipe.servings
         })
     return jsonify(recipe_list)
@@ -48,11 +48,26 @@ def add_recipe():
         title=data['title'],
         ingredients=data['ingredients'],
         instructions=data['instructions'],
-        servings=data['servings']
+        servings=data['servings'],
+        description=data['description'],
+        image_url=data['image_url']
     )
     db.session.add(new_recipe)
     db.session.commit()
-    return jsonify({'message': 'Recipe added successfully'})
+
+
+    # Serialize the new recipe and return it as JSON
+    new_recipe_data = {
+        'id': new_recipe.id, 
+        'title': new_recipe.title,
+        'ingredients': new_recipe.ingredients,
+        'instructions': new_recipe.instructions,
+        'servings': new_recipe.servings,
+        'description': new_recipe.description,
+        'image_url': new_recipe.image_url
+    }
+
+    return jsonify({'message': 'Recipe added successfully', 'recipe': new_recipe_data})
 
 # Route to update a recipe
 @app.route('/api/recipes/<int:recipe_id>', methods=['PUT'])
@@ -62,13 +77,27 @@ def update_recipe(recipe_id):
         return jsonify({'error': 'Recipe not found'}), 404
 
     data = request.get_json()
+
     recipe.title = data['title']
     recipe.ingredients = data['ingredients']
     recipe.instructions = data['instructions']
     recipe.servings = data['servings']
+    recipe.description = data['description']
+    recipe.image_url = data['image_url']
 
     db.session.commit()
-    return jsonify({'message': 'Recipe updated successfully'})
+ # Serialize the updated recipe and return it as JSON
+    updated_recipe_data = {
+        'id': recipe.id,
+        'title': recipe.title,
+        'ingredients': recipe.ingredients,
+        'instructions': recipe.instructions,
+        'servings': recipe.servings,
+        'description': recipe.description,
+        'image_url': recipe.image_url
+    }
+
+    return jsonify({'message': 'Recipe updated successfully', 'recipe': updated_recipe_data})
 
 # Route to delete a recipe
 @app.route('/api/recipes/<int:recipe_id>', methods=['DELETE'])
