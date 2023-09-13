@@ -84,7 +84,7 @@ header button:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .recipe-item {

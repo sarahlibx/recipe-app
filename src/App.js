@@ -10,12 +10,13 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [showNewRecipeForm, setShowNewRecipeForm] = useState(false);
+
   const [newRecipe, setNewRecipe] = useState({
     title: "",
     ingredients: "",
     instructions: "",
     description: "",
-    imageUrl: "",
+    image_url: "https://via.placeholder.com/150/771796",
     servings: 1
   });
 
