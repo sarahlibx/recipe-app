@@ -91,6 +91,8 @@ function App() {
       console.log({ data });
       // Update the recipe in the frontend
       setRecipes([...recipes, data.recipe]);
+
+      setShowNewRecipeForm(false);
       setNewRecipe({
         title: "",
         ingredients: "",
@@ -99,7 +101,6 @@ function App() {
         imageUrl: "",
         servings: 1
       });
-      setShowNewRecipeForm(false);
     } else {
       console.error("Recipe update failed.");
     }

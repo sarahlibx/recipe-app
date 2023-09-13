@@ -8,10 +8,10 @@ const NewRecipeForm = ({ newRecipe, handleNewRecipe, onUpdateForm, hideRecipeFor
         <button onClick={hideRecipeForm}>Close</button>
         <form onSubmit={(e) => handleNewRecipe(e, newRecipe)}>
           <label>Title</label>
-          <input type='text' name='title' value={newRecipe.title} onChange={(e) => onUpdateForm(e, "new")} />
+          <input type='text' name='title' value={newRecipe.title} onChange={(e) => onUpdateForm(e, "new")} required />
 
           <label>Ingredients</label>
-          <textarea name='ingredients' value={newRecipe.ingredients} onChange={(e) => onUpdateForm(e, "new")} />
+          <textarea name='ingredients' value={newRecipe.ingredients} onChange={(e) => onUpdateForm(e, "new")} required />
 
           <label>Instructions</label>
           <textarea
@@ -19,10 +19,11 @@ const NewRecipeForm = ({ newRecipe, handleNewRecipe, onUpdateForm, hideRecipeFor
             placeholder='Add ingredients separated by commas - i.e. Flour, sugar, almonds'
             value={newRecipe.instructions}
             onChange={(e) => onUpdateForm(e, "new")}
+            required
           />
 
           <label>Description</label>
-          <textarea name='description' value={newRecipe.description} onChange={(e) => onUpdateForm(e, "new")} />
+          <textarea name='description' value={newRecipe.description} onChange={(e) => onUpdateForm(e, "new")} required />
 
           <label>
             Image <span>(optional)</span>
@@ -30,7 +31,7 @@ const NewRecipeForm = ({ newRecipe, handleNewRecipe, onUpdateForm, hideRecipeFor
           <input type='text' name='image_url' value={newRecipe.image_url} onChange={(e) => onUpdateForm(e, "new")} />
 
           <label>Servings</label>
-          <input type='number' name='servings' value={newRecipe.servings} onChange={(e) => onUpdateForm(e, "new")} />
+          <input type='number' name='servings' value={newRecipe.servings} onChange={(e) => onUpdateForm(e, "new")} required />
 
           <button type='submit'>Create New Recipe</button>
         </form>

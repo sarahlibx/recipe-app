@@ -3,10 +3,20 @@ import EditRecipeForm from "./EditRecipeForm";
 
 const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, onUpdateForm, handleUpdateRecipe }) => {
   const [editing, setEditing] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModel] = useState(false);
 
   const handleCancel = () => {
     setEditing(false);
   };
+
+  const handleCloseModal = () => {
+    setShowConfirmationModel(false);
+  };
+
+  const handleShowModal = () => {
+    setShowConfirmationModel(true);
+  };
+
   return (
     <div className='recipe-details'>
       {editing ? (
@@ -16,6 +26,9 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, 
           handleDeleteRecipe={handleDeleteRecipe}
           handleCancel={handleCancel}
           handleUpdateRecipe={handleUpdateRecipe}
+          showConfirmationModal={showConfirmationModal}
+          handleCloseModal={handleCloseModal}
+          handleShowModal={handleShowModal}
         />
       ) : (
         <article>
