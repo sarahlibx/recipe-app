@@ -8,6 +8,7 @@ import "./App.css";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [showNewRecipeForm, setShowNewRecipeForm] = useState(false);
 
@@ -29,6 +30,20 @@ function App() {
     fetchAllRecipes();
   }, []);
 
+  const handleSearch = () => {
+    // Filter the recipes based on whether the search term is included in any value
+    const searchResults = recipes.filter((recipe) => {
+      const valuesToSearch = [recipe.title, recipe.ingredients, recipe.description];
+      // Check if the search term is included in any of the values and will return a boolean value
+      return valuesToSearch.some((value) => value.toLowerCase().includes(searchTerm.toLowerCase()));
+    });
+
+    return searchResults;
+  };
+
+  const updateSearchTerm = (text) => {
+    setSearchTerm(text);
+  };
   const handleUpdateRecipe = async (e, selectedRecipe) => {
     e.preventDefault();
     const { id, title, ingredients, instructions, servings, image_url, description } = selectedRecipe;
@@ -141,9 +156,16 @@ function App() {
     setSelectedRecipe(null);
   };
 
+  const displayedRecipes = searchTerm ? handleSearch() : recipes;
+
   return (
     <div className='recipe-app'>
-      <Header showRecipeForm={showRecipeForm} />
+      <Header
+        showRecipeForm={showRecipeForm}
+        handleSearch={handleSearch}
+        searchTerm={searchTerm}
+        updateSearchTerm={updateSearchTerm}
+      />
       {showNewRecipeForm && (
         <NewRecipeForm
           newRecipe={newRecipe}
@@ -164,7 +186,7 @@ function App() {
       )}
       {!selectedRecipe && !showNewRecipeForm && (
         <div className='recipe-list'>
-          {recipes.map((recipe) => (
+          {displayedRecipes.map((recipe) => (
             <RecipeExcerpt key={recipe.id} recipe={recipe} handleSelectRecipe={handleSelectRecipe} />
           ))}
         </div>
