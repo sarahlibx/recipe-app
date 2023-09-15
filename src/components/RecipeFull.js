@@ -52,9 +52,8 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, 
             ))}
           </ul>
           <p className='bold'>Instructions</p>
-          <p>
-            <pre className='formatted-text'>{selectedRecipe.instructions}</pre>
-          </p>
+
+          <pre className='formatted-text'>{selectedRecipe.instructions}</pre>
 
           <p className='bold'>Servings: {selectedRecipe.servings}</p>
         </article>

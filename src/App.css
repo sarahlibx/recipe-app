@@ -102,7 +102,7 @@ header .header-actions .search {
   width: 90%;
   max-width: 1400px;
   margin: 2rem auto;
-  padding: 2rem;
+  padding: 2rem 0;
 }
 
 .recipe-list {
@@ -148,7 +148,7 @@ header .header-actions .search {
 
 /* Recipe Details */
 .recipe-details {
-  width: 90%;
+  width: 100%;
   max-width: 650px;
   margin: 2rem auto;
   background-color: #fff;

@@ -4,7 +4,7 @@ const Header = ({ showRecipeForm, updateSearchTerm, searchTerm }) => {
   return (
     <header>
       <h1>My Favorite Recipes</h1>
-      <div class='header-actions'>
+      <div className='header-actions'>
         <button onClick={showRecipeForm}>Add New Recipe</button>
         <div className='search'>
           <label htmlFor='search'>Search</label>
