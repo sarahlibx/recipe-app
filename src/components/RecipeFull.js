@@ -32,22 +32,31 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, 
         />
       ) : (
         <article>
-          <h2>{selectedRecipe.title}</h2>
+          <header>
+            <h2>{selectedRecipe.title}</h2>
 
-          <button onClick={() => setEditing(true)}>Edit</button>
-          <button className='close-button' onClick={() => handleUnselectRecipe(selectedRecipe)}>
-            Close
-          </button>
+            <button onClick={() => setEditing(true)}>Edit</button>
+            <button className='close-button' onClick={() => handleUnselectRecipe(selectedRecipe)}>
+              Close
+            </button>
+          </header>
+          <figure>
+            <img alt={selectedRecipe.title} src={selectedRecipe.image_url} />
+          </figure>
 
-          <p>Ingredients</p>
+          <p className='bold'>Ingredients</p>
 
           <ul>
             {selectedRecipe.ingredients.split(",").map((ingredient, index) => (
               <li key={index}>{ingredient}</li>
             ))}
           </ul>
-          <p>{selectedRecipe.instructions}</p>
-          <p>Servings: {selectedRecipe.servings}</p>
+          <p className='bold'>Instructions</p>
+          <p>
+            <pre className='formatted-text'>{selectedRecipe.instructions}</pre>
+          </p>
+
+          <p className='bold'>Servings: {selectedRecipe.servings}</p>
         </article>
       )}
     </div>

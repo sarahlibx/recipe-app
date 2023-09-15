@@ -31,7 +31,6 @@ function App() {
   }, []);
 
   const handleSearch = () => {
-    // Filter the recipes based on whether the search term is included in any value
     const searchResults = recipes.filter((recipe) => {
       const valuesToSearch = [recipe.title, recipe.ingredients, recipe.description];
       // Check if the search term is included in any of the values and will return a boolean value
