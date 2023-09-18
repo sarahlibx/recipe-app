@@ -1,19 +1,11 @@
 import React from "react";
+import { truncateText } from "../helpers/utils.js";
 
 const RecipeExcerpt = ({ recipe, handleSelectRecipe }) => {
   const styles = {
     backgroundImage: `url(${recipe.image_url})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat"
-  };
-
-  const truncateText = (text, numWords) => {
-    const textArray = text.split(" ");
-    if (textArray.length <= numWords) {
-      return text;
-    } else {
-      return textArray.slice(0, numWords).join(" ") + "...";
-    }
   };
 
   return (
