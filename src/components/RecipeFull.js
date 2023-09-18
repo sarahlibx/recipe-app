@@ -44,6 +44,9 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, 
             <img alt={selectedRecipe.title} src={selectedRecipe.image_url} />
           </figure>
 
+          <p className='bold'>Description</p>
+          <p>{selectedRecipe.description}</p>
+
           <p className='bold'>Ingredients</p>
 
           <ul>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import displayToast from "./helpers/toastHelper";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -34,37 +34,8 @@ function App() {
     fetchAllRecipes();
   }, []);
 
-  const handleSearch = () => {
-    const searchResults = recipes.filter((recipe) => {
-      const valuesToSearch = [recipe.title, recipe.ingredients, recipe.description];
-      // Check if the search term is included in any of the values and will return a boolean value
-      return valuesToSearch.some((value) => value.toLowerCase().includes(searchTerm.toLowerCase()));
-    });
-
-    return searchResults;
-  };
-
-  const onUpdateForm = (e, action = "new") => {
-    const { name, value } = e.target;
-    if (action === "update") {
-      setSelectedRecipe({
-        ...selectedRecipe,
-        [name]: value
-      });
-    } else if (action === "new") {
-      setNewRecipe({ ...newRecipe, [name]: value });
-      console.log(newRecipe);
-    }
-  };
-
-  const updateSearchTerm = (text) => {
-    setSearchTerm(text);
-  };
-
   const handleNewRecipe = async (e, newRecipe) => {
     e.preventDefault();
-
-    const { title, ingredients, instructions, servings, description, image_url } = newRecipe;
 
     try {
       const response = await fetch("/api/recipes", {
@@ -72,14 +43,12 @@ function App() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ title, ingredients, instructions, servings, description, image_url })
+        body: JSON.stringify(newRecipe)
       });
 
       if (response.ok) {
         const data = await response.json();
 
-        console.log({ data });
-        // Update the recipe in the frontend
         setRecipes([...recipes, data.recipe]);
 
         displayToast("Recipe added successfully!", "success");
@@ -97,14 +66,14 @@ function App() {
         displayToast("Oops - could not add recipe!", "error");
       }
     } catch (e) {
-      console.e("An error occurred during the request:", e);
+      console.error("An error occurred during the request:", e);
       displayToast("An unexpected error occurred. Please try again later.", "error");
     }
   };
 
   const handleUpdateRecipe = async (e, selectedRecipe) => {
     e.preventDefault();
-    const { id, title, ingredients, instructions, servings, image_url, description } = selectedRecipe;
+    const { id } = selectedRecipe;
 
     try {
       const response = await fetch(`/api/recipes/${id}`, {
@@ -112,12 +81,11 @@ function App() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ title, ingredients, instructions, servings, description, image_url })
+        body: JSON.stringify(selectedRecipe)
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log({ data });
 
         setRecipes(
           recipes.map((recipe) => {
@@ -158,6 +126,32 @@ function App() {
       console.error("Something went wrong during the request:", e);
       displayToast("An unexpected error occurred. Please try again later.", "error");
     }
+  };
+
+  const handleSearch = () => {
+    const searchResults = recipes.filter((recipe) => {
+      const valuesToSearch = [recipe.title, recipe.ingredients, recipe.description];
+      // Check if the search term is included in any of the values and will return a boolean value
+      return valuesToSearch.some((value) => value.toLowerCase().includes(searchTerm.toLowerCase()));
+    });
+
+    return searchResults;
+  };
+
+  const onUpdateForm = (e, action = "new") => {
+    const { name, value } = e.target;
+    if (action === "update") {
+      setSelectedRecipe({
+        ...selectedRecipe,
+        [name]: value
+      });
+    } else if (action === "new") {
+      setNewRecipe({ ...newRecipe, [name]: value });
+    }
+  };
+
+  const updateSearchTerm = (text) => {
+    setSearchTerm(text);
   };
 
   const handleSelectRecipe = (recipe) => {
