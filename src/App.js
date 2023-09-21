@@ -180,6 +180,8 @@ function App() {
         handleSearch={handleSearch}
         searchTerm={searchTerm}
         updateSearchTerm={updateSearchTerm}
+        handleUnselectRecipe={handleUnselectRecipe}
+        hideRecipeForm={hideRecipeForm}
       />
       {showNewRecipeForm && (
         <NewRecipeForm
