@@ -1,13 +1,11 @@
 :root {
-  --primary-color: #1d657a;
-  --secondary-color: #123c49;
-  --accent-color: #f2a154;
+  --primary-color: #000000;
+  --secondary-color: #f6e4cd;
+  --accent-color: #feb4ab;
   --accent-color-secondary: #c48347;
   --accent-color-text: #151010;
   --border-color: #ddd;
-  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --font-size-h2: 20px;
-  --font-size-p: 16px;
+  --box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.1);
 }
 
 *,
@@ -23,6 +21,8 @@ html:focus-within {
 html,
 body {
   height: 100%;
+  color: var(--primary-color);
+  font-size: 1rem;
 }
 
 ul[role="list"],
@@ -40,6 +40,10 @@ picture,
 svg {
   max-width: 100%;
   display: block;
+}
+
+figure {
+  margin: 0;
 }
 
 .bold {
@@ -70,29 +74,42 @@ button {
 
 header {
   text-align: center;
+  padding: 1rem 0;
+}
+
+header h1 {
+  font-size: 2.5rem;
 }
 
 header button {
   background-color: var(--primary-color);
   color: #fff;
-  margin-bottom: 2rem;
+  width: 260px;
+  border-radius: 57px;
+  padding: 1rem 0;
+  font-size: 1rem;
 }
 
 header button:hover {
   background-color: var(--secondary-color);
 }
 
-header .header-actions .search label {
+header .logo-search {
+  display: flex;
+  justify-content: space-between;
+}
+
+header .logo-search .search label {
   margin-right: 0.75rem;
 }
 
-header .header-actions .search input {
+header .logo-search .search input {
   width: 90%;
   max-width: 300px;
   height: 25px;
 }
 
-header .header-actions .search {
+header .logo-search .search {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,47 +126,48 @@ header .header-actions .search {
   margin: 2rem auto;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-evenly;
+  gap: 4rem;
+  justify-content: center;
 }
 
 .recipe-card {
   flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
   border: 1px solid var(--border-color);
   border-radius: 5px;
-  padding: 20px;
+  padding: 1rem 2rem 3rem;
   box-shadow: var(--box-shadow);
 }
 
 .recipe-card h2 {
-  font-size: var(--font-size-h2);
+  font-size: 1.875rem;
   margin-bottom: 10px;
 }
 
 .recipe-card button {
-  background-color: var(--primary-color);
-  color: #fff;
+  background-color: var(--secondary-color);
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
-.recipe-card button:hover {
+/* .recipe-card button:hover {
   background-color: var(--secondary-color);
+} */
+
+.recipe-card .flex-spacing {
+  flex-grow: 1;
 }
 
 .recipe-card p {
-  font-size: var(--font-size-p);
-}
-
-.recipe-card .recipe-text {
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 1rem;
-  min-height: 100%;
+  font-size: 1.125rem;
 }
 
 /* Recipe Details */
 .recipe-details {
   width: 100%;
-  max-width: 650px;
+  max-width: 878px;
   margin: 2rem auto;
   background-color: #fff;
   border: 1px solid var(--border-color);
@@ -157,33 +175,45 @@ header .header-actions .search {
   box-shadow: var(--box-shadow);
 }
 
+.recipe-details header {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .recipe-details h2 {
-  font-size: 24px;
+  font-size: 2.375rem;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .recipe-details article {
-  padding: 2rem;
+  padding: 4.5rem 5.25rem;
 }
 
 .recipe-details button {
-  background-color: var(--primary-color);
-  color: #fff;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
   margin-right: 10px;
+  border-radius: 0;
+  width: 100px;
+  height: 30px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.875rem;
 }
 
 .recipe-details button:hover {
   background-color: var(--secondary-color);
 }
 
-.recipe-details .close-button {
+.recipe-details .delete-button {
   background-color: var(--accent-color);
   color: var(--accent-color-text);
 }
 
-.recipe-details .close-button:hover {
-  background-color: var(--accent-color-secondary);
-}
 .recipe-details p {
   font-size: 18px;
 }
@@ -252,26 +282,16 @@ header .header-actions .search {
 
 /* Media Query for Larger Screens */
 @media screen and (min-width: 768px) {
-  header {
-    text-align: left;
-  }
-
-  header .header-actions {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
-
   header button {
     margin-bottom: 0;
   }
   .recipe-card {
-    flex: 0 0 calc(50% - 20px);
+    flex: 0 0 calc(50% - 4rem);
   }
 }
 
 @media screen and (min-width: 1200px) {
   .recipe-card {
-    flex: 0 0 calc(33.33% - 20px);
+    flex: 0 0 calc(33.33% - 4rem);
   }
 }
