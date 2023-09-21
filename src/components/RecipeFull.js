@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import EditRecipeForm from "./EditRecipeForm";
+import ConfirmationModal from "./ConfirmationModal";
 
 const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, onUpdateForm, handleUpdateRecipe }) => {
   const [editing, setEditing] = useState(false);
@@ -9,14 +10,19 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, 
     setEditing(false);
   };
 
-  const handleCloseModal = () => {
-    setShowConfirmationModel(false);
-  };
-
-  const handleShowModal = () => {
-    setShowConfirmationModel(true);
-  };
-
+  if (showConfirmationModal) {
+    return (
+      <div className='recipe-details'>
+        {showConfirmationModal && (
+          <ConfirmationModal
+            message='Are you sure?'
+            onCancel={() => setShowConfirmationModel(false)}
+            onConfirm={() => handleDeleteRecipe(selectedRecipe.id)}
+          />
+        )}
+      </div>
+    );
+  }
   return (
     <div className='recipe-details'>
       {editing ? (
@@ -27,8 +33,6 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, 
           handleCancel={handleCancel}
           handleUpdateRecipe={handleUpdateRecipe}
           showConfirmationModal={showConfirmationModal}
-          handleCloseModal={handleCloseModal}
-          handleShowModal={handleShowModal}
         />
       ) : (
         <article>
@@ -41,6 +45,9 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, 
             <button onClick={() => setEditing(true)}>Edit</button>
             <button className='close-button' onClick={() => handleUnselectRecipe(selectedRecipe)}>
               Close
+            </button>
+            <button className='delete-button' onClick={() => setShowConfirmationModel(true)}>
+              Delete
             </button>
           </header>
 
