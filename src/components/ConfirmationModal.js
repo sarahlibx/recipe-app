@@ -2,11 +2,15 @@ import React from "react";
 
 const ConfirmationModal = ({ message, onCancel, onConfirm }) => {
   return (
-    <div className='modal'>
-      <div className='modal-content'>
+    <div className='confirm'>
+      <div className='confirm-content'>
         <p>{message}</p>
-        <button onClick={onCancel}>Cancel</button>
-        <button onClick={onConfirm}>Delete</button>
+        <button className='close-button' onClick={onCancel}>
+          Cancel
+        </button>
+        <button className='delete-button' onClick={onConfirm}>
+          Delete
+        </button>
       </div>
     </div>
   );

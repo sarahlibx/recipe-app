@@ -77,6 +77,14 @@ header {
   padding: 1rem 0;
 }
 
+header svg {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+header svg:hover {
+  transform: rotate(35deg);
+}
 header h1 {
   font-size: 2.5rem;
 }
@@ -150,11 +158,13 @@ header .logo-search .search {
   background-color: var(--secondary-color);
   text-transform: uppercase;
   font-weight: bold;
+  transition: transform 0.3s ease;
 }
 
-/* .recipe-card button:hover {
-  background-color: var(--secondary-color);
-} */
+.recipe-card button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
 
 .recipe-card .flex-spacing {
   flex-grow: 1;
@@ -278,6 +288,23 @@ header .logo-search .search {
 
 .recipe-form .delete-button:hover {
   background-color: #7e2121;
+}
+
+.confirm {
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.confirm-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.confirm-content p {
+  width: 100%;
 }
 
 /* Media Query for Larger Screens */

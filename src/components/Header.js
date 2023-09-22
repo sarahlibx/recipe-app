@@ -8,7 +8,7 @@ const Header = ({ showRecipeForm, updateSearchTerm, searchTerm, hideRecipeForm, 
   };
   return (
     <header>
-      <div class='logo-search'>
+      <div className='logo-search'>
         <Logo onClick={displayAllRecipes} />
         <div className='search'>
           <label htmlFor='search'>Search</label>

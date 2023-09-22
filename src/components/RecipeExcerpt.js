@@ -8,7 +8,7 @@ const RecipeExcerpt = ({ recipe, handleSelectRecipe }) => {
         <img src={recipe.image_url} alt={recipe.name} />
       </figure>
       <h2>{recipe.title}</h2>
-      <p class='flex-spacing'>Description: {truncateText(recipe.description, 20)}</p>
+      <p className='flex-spacing'>Description: {truncateText(recipe.description, 20)}</p>
       <button onClick={() => handleSelectRecipe(recipe)}>View</button>
     </article>
   );
