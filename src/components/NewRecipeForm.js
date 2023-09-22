@@ -34,7 +34,7 @@ const NewRecipeForm = ({ newRecipe, handleNewRecipe, onUpdateForm, hideRecipeFor
           <label>Servings</label>
           <input type='number' name='servings' value={newRecipe.servings} onChange={(e) => onUpdateForm(e, "new")} required />
 
-          <button type='submit'>Create New Recipe</button>
+          <button type='submit'>Save Recipe</button>
         </form>
       </div>
     </div>

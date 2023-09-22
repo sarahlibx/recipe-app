@@ -7,6 +7,8 @@
   --accent-color-hover: #d97e74;
   --accent-color-secondary: #9fdfd1;
   --accent-color-text: #151010;
+  --light-gray: #c7cdd1;
+  --medium-gray: #7E868B
   --border-color: #ddd;
   --box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.1);
 }
@@ -85,8 +87,8 @@ header svg {
   cursor: pointer;
 }
 
-header svg:hover {
-  transform: rotate(35deg);
+header .logo-search svg:hover {
+  transform: rotate(25deg);
 }
 header h1 {
   font-size: 2.5rem;
@@ -107,6 +109,12 @@ header .logo-search {
   justify-content: space-between;
 }
 
+header .logo-search .search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 header .logo-search .search label {
   margin-right: 0.75rem;
 }
@@ -114,13 +122,35 @@ header .logo-search .search label {
 header .logo-search .search input {
   width: 90%;
   max-width: 300px;
+  font-size: 1rem;
   height: 25px;
+  border: none;
+  border-bottom: 1px solid var(--primary-color);
 }
 
-header .logo-search .search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+header .logo-search .search input:hover {
+  cursor: pointer;
+}
+
+header .logo-search .search input::placeholder {
+  color: var(--light-gray);
+  font-weight: bold;
+}
+
+header .logo-search .search svg {
+  stroke-width: 3px;
+}
+
+.visually-hidden {
+  display: inline-block;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1;
+  width: 1;
+  margin: -1;
+  padding: 0;
+  border: 0;
 }
 
 .recipe-app {
@@ -220,9 +250,18 @@ header .logo-search .search {
   background-color: var(--secondary-color-hover);
 }
 
+.recipe-details button svg {
+  width: 16px;
+  margin-left: 10px;
+}
+
 .recipe-details .delete-button {
   background-color: var(--accent-color);
   color: var(--accent-color-text);
+}
+
+.recipe-details .edit-button svg {
+  fill: #000000;
 }
 
 .recipe-details .delete-button:hover,
@@ -244,7 +283,6 @@ header .logo-search .search {
 
 /* Recipe Form */
 .recipe-form {
-  background-color: #f9f9f9;
   padding: 2rem;
 }
 
@@ -254,7 +292,7 @@ header .logo-search .search {
 
 .recipe-form h2 {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
 .recipe-form label {
@@ -268,24 +306,35 @@ header .logo-search .search {
 .recipe-form input[type="number"] {
   width: 100%;
   padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  margin: 5px 0 15px 0;
+  border-width: 1px;
+  border-color: var(--light-gray);
+  inset: none;
+  border-style: solid;
 }
 
-.recipe-form button {
+.recipe-form textarea {
+  min-height: 6rem;
+}
+
+.recipe-form button[type="submit"] {
   background-color: var(--primary-color);
   color: white;
+  width: 240px;
+  border-radius: 57px;
+  margin-top: 2rem;
+  padding: 1.5rem 3rem;
+  font-size: 1rem;
+  cursor: pointer;
 }
-
-.recipe-form button:hover {
-  background-color: var(--secondary-color);
+.recipe-form button:not[type="submit"]:hover {
+  background-color: var(--secondary-color-hover);
 }
 
 .recipe-form .edit-form-buttons {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 3rem;
 }
 
 .recipe-form .delete-button {

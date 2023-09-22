@@ -1,4 +1,5 @@
 import React from "react";
+import { Search } from "react-feather";
 import { ReactComponent as Logo } from "../images/utensils.svg";
 
 const Header = ({ showRecipeForm, updateSearchTerm, searchTerm, hideRecipeForm, handleUnselectRecipe }) => {
@@ -11,8 +12,17 @@ const Header = ({ showRecipeForm, updateSearchTerm, searchTerm, hideRecipeForm, 
       <div className='logo-search'>
         <Logo onClick={displayAllRecipes} />
         <div className='search'>
-          <label htmlFor='search'>Search</label>
-          <input type='text' id='search' value={searchTerm} onChange={(e) => updateSearchTerm(e.target.value)} />
+          <label className='visually-hidden' htmlFor='search'>
+            Search
+          </label>
+          <input
+            type='text'
+            placeholder='Search'
+            id='search'
+            value={searchTerm}
+            onChange={(e) => updateSearchTerm(e.target.value)}
+          />
+          <Search />
         </div>
       </div>
       <h1>My Favorite Recipes</h1>

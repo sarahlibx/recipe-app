@@ -5,7 +5,7 @@ const EditRecipeForm = ({ selectedRecipe, onUpdateForm, handleCancel, handleUpda
     <div className='recipe-form edit-form'>
       <h2>Edit "{selectedRecipe.title}"</h2>
       <div className='edit-form-buttons'>
-        <button className='cancel-button' onClick={handleCancel}>
+        <button className='close-button' onClick={handleCancel}>
           Cancel
         </button>
       </div>
@@ -28,7 +28,7 @@ const EditRecipeForm = ({ selectedRecipe, onUpdateForm, handleCancel, handleUpda
         <label>Servings</label>
         <input type='number' name='servings' value={selectedRecipe.servings} onChange={(e) => onUpdateForm(e, "update")} />
 
-        <button type='submit'>Update</button>
+        <button type='submit'>Update Recipe</button>
       </form>
     </div>
   );
