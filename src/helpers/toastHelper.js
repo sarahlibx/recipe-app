@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 const displayToast = (message, type = "success") => {
   const options = {
     position: "bottom-right",
-    autoClose: 3000
+    autoClose: 10000
   };
 
   if (type === "success") {
