@@ -8,9 +8,12 @@
   --accent-color-secondary: #9fdfd1;
   --accent-color-text: #151010;
   --light-gray: #c7cdd1;
-  --medium-gray: #7E868B
+  --medium-gray: #7e868b;
+  --dark-gray: #3d3d3d;
   --border-color: #ddd;
   --box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.1);
+  --headings-font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
+  --default-font-family: "Jost", Arial, Helvetica, sans-serif;
 }
 
 *,
@@ -28,6 +31,7 @@ body {
   height: 100%;
   color: var(--primary-color);
   font-size: 1rem;
+  font-family: var(--default-font-family);
 }
 
 ul[role="list"],
@@ -75,11 +79,12 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: inherit;
 }
 
 header {
   text-align: center;
-  padding: 1rem 0;
+  padding: 1rem 0 5rem 0;
 }
 
 header svg {
@@ -92,9 +97,10 @@ header .logo-search svg:hover {
 }
 header h1 {
   font-size: 2.5rem;
+  font-family: var(--headings-font-family);
 }
 
-header button {
+header .new-recipe {
   background-color: var(--primary-color);
   color: #fff;
   width: 260px;
@@ -104,9 +110,14 @@ header button {
   cursor: pointer;
 }
 
+header .new-recipe:hover {
+  background-color: var(--dark-gray);
+}
+
 header .logo-search {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 5rem;
 }
 
 header .logo-search .search {
@@ -157,7 +168,7 @@ header .logo-search .search svg {
   width: 90%;
   max-width: 1400px;
   margin: 2rem auto;
-  padding: 2rem 0;
+  padding-top: 2rem;
 }
 
 .recipe-list {
@@ -188,13 +199,12 @@ header .logo-search .search svg {
   background-color: var(--secondary-color);
   text-transform: uppercase;
   font-weight: bold;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 .recipe-card button:hover {
   cursor: pointer;
   background-color: var(--secondary-color-hover);
-  transform: scale(1.05);
 }
 
 .recipe-card .flex-spacing {
@@ -317,6 +327,10 @@ header .logo-search .search svg {
   min-height: 6rem;
 }
 
+.recipe-form.new-form button {
+  margin-bottom: 2.5rem;
+}
+
 .recipe-form button[type="submit"] {
   background-color: var(--primary-color);
   color: white;
@@ -387,6 +401,13 @@ header .logo-search .search svg {
 
 /* Media Query for Larger Screens */
 @media screen and (min-width: 768px) {
+  .recipe-app {
+    padding: 2rem;
+  }
+
+  header .logo-search {
+    padding-bottom: 1rem;
+  }
   header button {
     margin-bottom: 0;
   }
