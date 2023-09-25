@@ -134,7 +134,10 @@ header .logo-search .search input {
   width: 90%;
   max-width: 300px;
   font-size: 1rem;
-  height: 25px;
+  height: 30px;
+  padding-left: 8px;
+  margin-right: 5px;
+  font-family: inherit;
   border: none;
   border-bottom: 1px solid var(--primary-color);
 }
@@ -168,7 +171,7 @@ header .logo-search .search svg {
   width: 90%;
   max-width: 1400px;
   margin: 2rem auto;
-  padding-top: 2rem;
+  padding: 2rem 0;
 }
 
 .recipe-list {
@@ -230,6 +233,7 @@ header .logo-search .search svg {
   text-align: left;
   display: flex;
   flex-wrap: wrap;
+  padding: 0;
 }
 
 .recipe-details h2 {
@@ -238,16 +242,25 @@ header .logo-search .search svg {
   width: 100%;
 }
 
+.recipe-details h3 {
+  margin-top: 3rem;
+}
+
 .recipe-details article {
-  padding: 4.5rem 5.25rem;
+  padding: 2.25rem;
+}
+
+.recipe-details .button-container {
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 10px;
 }
 
 .recipe-details button {
   background-color: var(--secondary-color);
   color: var(--primary-color);
-  margin-right: 10px;
   border-radius: 0;
-  width: 100px;
+  flex: 1 1 100px;
   height: 30px;
   font-weight: 700;
   display: flex;
@@ -260,18 +273,23 @@ header .logo-search .search svg {
   background-color: var(--secondary-color-hover);
 }
 
-.recipe-details button svg {
-  width: 16px;
-  margin-left: 10px;
-}
-
 .recipe-details .delete-button {
   background-color: var(--accent-color);
   color: var(--accent-color-text);
 }
+.recipe-details .button-container svg {
+  margin-right: 5px;
+}
 
 .recipe-details .edit-button svg {
   fill: #000000;
+  width: 16px;
+  stroke-width: 1px;
+}
+
+.recipe-details .cancel-button svg {
+  stroke-width: 3.5px;
+  width: 40px;
 }
 
 .recipe-details .delete-button:hover,
@@ -283,11 +301,20 @@ header .logo-search .search svg {
   font-size: 18px;
 }
 
+.recipe-details .ingredient-list {
+  padding-left: 1rem;
+  list-style-type: none;
+  line-height: 2rem;
+}
+
+.recipe-details .ingredient::before {
+  content: " - ";
+  padding-right: 0.75rem;
+}
 .recipe-details .formatted-text {
   white-space: pre-line;
   font-family: inherit;
   max-width: 100%;
-  padding: 10px;
   margin-top: 10px;
 }
 
@@ -317,6 +344,8 @@ header .logo-search .search svg {
   width: 100%;
   padding: 10px;
   margin: 5px 0 15px 0;
+  font-family: inherit;
+  font-size: 1rem;
   border-width: 1px;
   border-color: var(--light-gray);
   inset: none;
@@ -327,7 +356,7 @@ header .logo-search .search svg {
   min-height: 6rem;
 }
 
-.recipe-form.new-form button {
+.recipe-form .cancel-button {
   margin-bottom: 2.5rem;
 }
 
@@ -341,14 +370,9 @@ header .logo-search .search svg {
   font-size: 1rem;
   cursor: pointer;
 }
-.recipe-form button:not[type="submit"]:hover {
-  background-color: var(--secondary-color-hover);
-}
 
-.recipe-form .edit-form-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 3rem;
+.recipe-form button[type="submit"]:hover {
+  background-color: var(--dark-gray);
 }
 
 .recipe-form .delete-button {
@@ -370,6 +394,7 @@ header .logo-search .search svg {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  gap: 1rem;
 }
 
 .confirm-content p {
@@ -401,23 +426,27 @@ header .logo-search .search svg {
 
 /* Media Query for Larger Screens */
 @media screen and (min-width: 768px) {
-  .recipe-app {
-    padding: 2rem;
-  }
-
   header .logo-search {
     padding-bottom: 1rem;
   }
   header button {
     margin-bottom: 0;
   }
+
   .recipe-card {
-    flex: 0 0 calc(50% - 4rem);
+    flex: 0 0 calc(50% - 2rem);
   }
 }
 
 @media screen and (min-width: 1200px) {
+  .recipe-list {
+    gap: 3rem;
+  }
   .recipe-card {
-    flex: 0 0 calc(33.33% - 4rem);
+    flex: 0 0 calc(33.33% - 2rem);
+  }
+
+  .recipe-details article {
+    padding: 4.5rem 5.25rem;
   }
 }

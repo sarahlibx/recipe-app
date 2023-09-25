@@ -42,33 +42,37 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, 
               <img alt={selectedRecipe.title} src={selectedRecipe.image_url} />
             </figure>
             <h2>{selectedRecipe.title}</h2>
-
-            <button className='edit-button' onClick={() => setEditing(true)}>
-              Edit <Edit />
-            </button>
-            <button className='cancel-button' onClick={() => handleUnselectRecipe(selectedRecipe)}>
-              Close <X />
-            </button>
-            <button className='delete-button' onClick={() => setShowConfirmationModel(true)}>
-              Delete
-            </button>
+            <div className='button-container'>
+              <button className='edit-button' onClick={() => setEditing(true)}>
+                <Edit />
+                Edit
+              </button>
+              <button className='cancel-button' onClick={() => handleUnselectRecipe(selectedRecipe)}>
+                <X /> Close
+              </button>
+              <button className='delete-button' onClick={() => setShowConfirmationModel(true)}>
+                Delete
+              </button>
+            </div>
           </header>
 
-          <p className='bold'>Description:</p>
+          <h3 className='description'>Description:</h3>
           <p>{selectedRecipe.description}</p>
 
-          <p className='bold'>Ingredients:</p>
+          <h3 className='ingredients'>Ingredients:</h3>
 
-          <ul>
+          <ul className='ingredient-list'>
             {selectedRecipe.ingredients.split(",").map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
+              <li className='ingredient' key={index}>
+                {ingredient}
+              </li>
             ))}
           </ul>
-          <p className='bold'>Instructions:</p>
+          <h3>Instructions:</h3>
 
           <pre className='formatted-text'>{selectedRecipe.instructions}</pre>
 
-          <p className='bold'>Servings: {selectedRecipe.servings}</p>
+          <h3>Servings: {selectedRecipe.servings}</h3>
         </article>
       )}
     </div>
