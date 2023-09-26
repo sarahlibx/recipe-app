@@ -60,6 +60,18 @@ figure {
   font-weight: 700;
 }
 
+.visually-hidden {
+  display: inline-block;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1;
+  width: 1;
+  margin: -1;
+  padding: 0;
+  border: 0;
+}
+
 /* Remove animations, transitions, and smooth scroll for reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within,
@@ -73,13 +85,22 @@ figure {
   }
 }
 
+/* End Global Styles */
+
+.recipe-app {
+  width: 90%;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 2rem 0;
+}
+
 button {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
+  font-family: inherit;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-family: inherit;
 }
 
 header {
@@ -88,8 +109,8 @@ header {
 }
 
 header svg {
-  transition: transform 0.3s ease;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 header .logo-search svg:hover {
@@ -98,20 +119,6 @@ header .logo-search svg:hover {
 header h1 {
   font-size: 2.5rem;
   font-family: var(--headings-font-family);
-}
-
-header .new-recipe {
-  background-color: var(--primary-color);
-  color: #fff;
-  width: 260px;
-  border-radius: 57px;
-  padding: 1rem 0;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-header .new-recipe:hover {
-  background-color: var(--dark-gray);
 }
 
 header .logo-search {
@@ -133,10 +140,10 @@ header .logo-search .search label {
 header .logo-search .search input {
   width: 90%;
   max-width: 300px;
-  font-size: 1rem;
   height: 30px;
   padding-left: 8px;
   margin-right: 5px;
+  font-size: 1rem;
   font-family: inherit;
   border: none;
   border-bottom: 1px solid var(--primary-color);
@@ -155,41 +162,38 @@ header .logo-search .search svg {
   stroke-width: 3px;
 }
 
-.visually-hidden {
-  display: inline-block;
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  height: 1;
-  width: 1;
-  margin: -1;
-  padding: 0;
-  border: 0;
+header .new-recipe {
+  width: 260px;
+  padding: 1rem 0;
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 57px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
-.recipe-app {
-  width: 90%;
-  max-width: 1400px;
-  margin: 2rem auto;
-  padding: 2rem 0;
+header .new-recipe:hover {
+  background-color: var(--dark-gray);
 }
+
+/* All Recipe view */
 
 .recipe-list {
-  margin: 2rem auto;
   display: flex;
   flex-wrap: wrap;
   gap: 4rem;
   justify-content: center;
+  margin: 2rem auto;
 }
 
 .recipe-card {
-  flex: 0 0 100%;
   display: flex;
   flex-direction: column;
+  flex: 0 0 100%;
+  padding: 1rem 2rem 3rem;
   background-color: #fff;
   border: 1px solid var(--border-color);
   border-radius: 5px;
-  padding: 1rem 2rem 3rem;
   box-shadow: var(--box-shadow);
 }
 
@@ -199,9 +203,9 @@ header .logo-search .search svg {
 }
 
 .recipe-card button {
+  font-weight: bold;
   background-color: var(--secondary-color);
   text-transform: uppercase;
-  font-weight: bold;
   transition: transform 0.5s ease;
 }
 
@@ -219,6 +223,7 @@ header .logo-search .search svg {
 }
 
 /* Recipe Details */
+
 .recipe-details {
   width: 100%;
   max-width: 878px;
@@ -230,16 +235,16 @@ header .logo-search .search svg {
 }
 
 .recipe-details header {
-  text-align: left;
   display: flex;
   flex-wrap: wrap;
   padding: 0;
+  text-align: left;
 }
 
 .recipe-details h2 {
-  font-size: 2.375rem;
-  margin-bottom: 10px;
   width: 100%;
+  margin-bottom: 10px;
+  font-size: 2.375rem;
 }
 
 .recipe-details h3 {
@@ -252,21 +257,20 @@ header .logo-search .search svg {
 
 .recipe-details .button-container {
   display: flex;
-  /* flex-wrap: wrap; */
   gap: 10px;
 }
 
 .recipe-details button {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-  border-radius: 0;
-  flex: 1 1 100px;
-  height: 30px;
-  font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1 1 100px;
+  height: 30px;
+  font-weight: 700;
   font-size: 0.875rem;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border-radius: 0;
 }
 
 .recipe-details button:hover {
@@ -312,30 +316,29 @@ header .logo-search .search svg {
   padding-right: 0.75rem;
 }
 .recipe-details .formatted-text {
-  white-space: pre-line;
-  font-family: inherit;
   max-width: 100%;
   margin-top: 10px;
+  white-space: pre-line;
+  font-family: inherit;
 }
 
 /* Recipe Form */
+
 .recipe-form {
+  width: 90%;
+  margin: 0 auto;
   padding: 2rem;
 }
 
-.recipe-form form {
-  width: 90%;
-}
-
 .recipe-form h2 {
-  font-size: 24px;
   margin-bottom: 1.5rem;
+  font-size: 24px;
 }
 
 .recipe-form label {
   display: block;
-  font-weight: bold;
   margin-top: 10px;
+  font-weight: bold;
 }
 
 .recipe-form input[type="text"],
@@ -348,8 +351,8 @@ header .logo-search .search svg {
   font-size: 1rem;
   border-width: 1px;
   border-color: var(--light-gray);
-  inset: none;
   border-style: solid;
+  inset: none;
 }
 
 .recipe-form textarea {
@@ -361,13 +364,13 @@ header .logo-search .search svg {
 }
 
 .recipe-form button[type="submit"] {
-  background-color: var(--primary-color);
-  color: white;
   width: 240px;
-  border-radius: 57px;
   margin-top: 2rem;
   padding: 1.5rem 3rem;
+  border-radius: 57px;
   font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
   cursor: pointer;
 }
 
@@ -375,19 +378,11 @@ header .logo-search .search svg {
   background-color: var(--dark-gray);
 }
 
-.recipe-form .delete-button {
-  background-color: #982626;
-}
-
-.recipe-form .delete-button:hover {
-  background-color: #7e2121;
-}
-
 .confirm {
-  padding: 1rem;
-  text-align: center;
   display: flex;
   justify-content: center;
+  padding: 1rem;
+  text-align: center;
 }
 
 .confirm-content {
@@ -424,7 +419,8 @@ header .logo-search .search svg {
   background: var(--accent-color-hover);
 }
 
-/* Media Query for Larger Screens */
+/* Media queries for larger viewports */
+
 @media screen and (min-width: 768px) {
   header .logo-search {
     padding-bottom: 1rem;
