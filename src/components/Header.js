@@ -6,6 +6,7 @@ const Header = ({ showRecipeForm, updateSearchTerm, searchTerm, hideRecipeForm, 
   const displayAllRecipes = () => {
     hideRecipeForm();
     handleUnselectRecipe();
+    updateSearchTerm("");
   };
   return (
     <header>
