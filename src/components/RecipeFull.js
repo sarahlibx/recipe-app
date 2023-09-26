@@ -56,10 +56,10 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleDeleteRecipe, 
             </div>
           </header>
 
-          <h3 className='description'>Description:</h3>
+          <h3>Description:</h3>
           <p>{selectedRecipe.description}</p>
 
-          <h3 className='ingredients'>Ingredients:</h3>
+          <h3>Ingredients:</h3>
 
           <ul className='ingredient-list'>
             {selectedRecipe.ingredients.split(",").map((ingredient, index) => (

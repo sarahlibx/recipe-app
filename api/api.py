@@ -52,7 +52,7 @@ def add_recipe():
     data = request.get_json()
     # Validate the incoming JSON data for required fields
     required_fields = ['title', 'ingredients',
-                       'instructions', 'servings', 'description']
+                       'instructions', 'servings', 'description', 'image_url']
 
     for field in required_fields:
         if field not in data or data[field] == "":
@@ -96,7 +96,7 @@ def update_recipe(recipe_id):
 
     # Validate the incoming JSON data for required fields
     required_fields = ['title', 'ingredients',
-                       'instructions', 'servings', 'description']
+                       'instructions', 'servings', 'description', 'image_url']
 
     for field in required_fields:
         if field not in data or data[field] == "":
