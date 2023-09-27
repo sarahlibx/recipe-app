@@ -26,9 +26,18 @@ function App() {
 
   useEffect(() => {
     const fetchAllRecipes = async () => {
-      const response = await fetch("/api/recipes");
-      const data = await response.json();
-      setRecipes(data);
+      try {
+        const response = await fetch("/api/recipes");
+        if (response.ok) {
+          const data = await response.json();
+          setRecipes(data);
+        } else {
+          displayToast("Oops - could not fetch recipes!", "error");
+        }
+      } catch (e) {
+        console.error("An error occurred during the request:", e);
+        displayToast("An unexpected error occurred. Please try again later.", "error");
+      }
     };
     fetchAllRecipes();
   }, []);
