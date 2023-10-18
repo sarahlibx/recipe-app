@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Getting Started with your Flask / React project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project uses Create-React-App, Flask and SQLite.
 
 ## Available Scripts
 
-In the project directory, you can run:
+You will need to be running two scrips in two separate terminal tabs / windows.
 
-### `npm start`
+One will be for for running the Flask server, and the other for the React server.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Install dependencies
 
-### `npm test`
+### For Flask
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+First, make sure you drop into the `/api` directory, create and then run a virtual environment:
 
-### `npm run build`
+`python -m venv venv && source venv/bin/activate`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+(For future sessions, only `source venv/bin/activate` will be needed to start the virtual environment. I recommend aliasing this command!)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Then install all dependencies `pip install -r requirements.txt` (only the first time)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### For React
 
-### `npm run eject`
+In your other Terminal window, in the root of the project directory, run `npm install` (only the first time)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Run the servers
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### For Flask
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Ensure that your virtual environment is running (You should see a `(venv)` at the end of your prompt)
 
-## Learn More
+Then _move back to the root of the project_ and run
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`npm run start-api`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This will run the Flask server on port 5000
 
-### Code Splitting
+### For the React server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Run `npm run start`
 
-### Analyzing the Bundle Size
+This will start your React dev server on port 3000.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+You should now be able to see the app in the browser.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## To stop the app:
 
-### Advanced Configuration
+### For Flask
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Use `ctrl + C` to stop the server
+Run `deactivate` to stop the virtual environment. You do not need to move into the `/api` directory first. (You do need to in order to _start_ the virtual environment, though.)
 
-### Deployment
+### For React
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Use `ctrl + C` to stop the server.
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Have fun! 😎 🎉 💻
