@@ -34,9 +34,14 @@ In your other Terminal window, in the root of the project directory, run `npm in
 
 Ensure that your virtual environment is running (You should see a `(venv)` at the end of your prompt)
 
-Then _move back to the root of the project_ and run
+Then:
+On Mac: _move back to the root of the project_ and run
 
 `npm run start-api`
+
+On Windows:
+Stay in the `/api` directory and run
+`flask run --no-debugger`
 
 This will run the Flask server on port 5000
 
