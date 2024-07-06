@@ -41,6 +41,7 @@ On Mac: _move back to the root of the project_ and run
 
 On Windows:
 Stay in the `/api` directory and run
+
 `flask run --no-debugger`
 
 This will run the Flask server on port 5000
