@@ -9,7 +9,8 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [showNewRecipeForm, setShowNewRecipeForm] = useState(false);
-  
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [newRecipe, setNewRecipe] = useState({
     title: "",
     ingredients: "",
@@ -38,6 +39,7 @@ function App() {
 
 const handleNewRecipe = async (e, newRecipe) => {
   e.preventDefault();
+
   try {
     const response = await fetch("/api/recipes", {
       method: "POST",
@@ -51,6 +53,7 @@ const handleNewRecipe = async (e, newRecipe) => {
       const data = await response.json();
       setRecipes([...recipes, data.recipe]);
       console.log("Recipe added successfully!");
+
       setShowNewRecipeForm(false);
       setNewRecipe({
         title: "",
@@ -61,10 +64,10 @@ const handleNewRecipe = async (e, newRecipe) => {
         image_url: "https://images.pexels.com/photos/9986228/pexels-photo-9986228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" //default
       });
     } else {
-      console.log("Oops, could not fetch recipes!")
+      console.error("Oops, could not fetch recipes!")
     }
   } catch (e) {
-    console.log("Something went wrong", e);
+    console.error("Something went wrong", e);
   }
 };
 
@@ -74,9 +77,9 @@ const handleUpdateRecipe = async (e, selectedRecipe) => {
 
   try {
     const response = await fetch(`/api/recipes/${id}`, {
-      method:'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(selectedRecipe)
     });
@@ -93,7 +96,7 @@ const handleUpdateRecipe = async (e, selectedRecipe) => {
           return recipe;
         })
       );
-      console.log("Recipe updated!");
+      console.error("Recipe updated!");
     } else {
       console.error("Failed to update recipe. Please try again.");
     }
@@ -104,7 +107,7 @@ const handleUpdateRecipe = async (e, selectedRecipe) => {
   setSelectedRecipe(null);
 };
 
-const handleDeleteRecipe = async (e, recipeId) => {
+const handleDeleteRecipe = async (recipeId) => {
   try {
     const response = await fetch(`/api/recipes/${selectedRecipe.id}`, {
       method:'DELETE'
@@ -120,6 +123,16 @@ const handleDeleteRecipe = async (e, recipeId) => {
   } catch (error) {
     console.error("An unexpected error occurred. Please try again later.");
   }
+};
+
+const handleSearch = () => {
+  const searchResults = recipes.filter((recipe) => {
+    const valuesToSearch = [recipe.title, recipe.ingredients, recipe.description];
+    // Check if the search term is included in any of the values and will return a boolean value
+    return valuesToSearch.some((value) => value.toLowerCase().includes(searchTerm.toLowerCase()));
+  });
+
+  return searchResults;
 };
 
 const handleSelectRecipe = (recipe) => {
@@ -139,6 +152,10 @@ const showRecipeForm = () => {
   setSelectedRecipe(null);
 };
 
+const updateSearchTerm = (text) => {
+  setSearchTerm(text);
+};
+
 const onUpdateForm = (e, action = 'new') => {
   const { name, value } = e.target;
   if (action === 'update') {
@@ -150,9 +167,14 @@ const onUpdateForm = (e, action = 'new') => {
   }
 };
 
+const displayedRecipes = searchTerm ? handleSearch() : recipes;
+
 return (
   <div className='recipe-app'>
-    <Header showRecipeForm={showRecipeForm}/>
+    <Header 
+    showRecipeForm={showRecipeForm}
+    searchTerm={searchTerm}
+    updateSearchTerm={updateSearchTerm}/>
 
     {showNewRecipeForm && (
     <NewRecipeForm 
@@ -173,7 +195,7 @@ return (
 
     {!selectedRecipe && !showNewRecipeForm && (
     <div className='recipe-list'>
-      {recipes.map((recipe) => (
+      {displayedRecipes.map((recipe) => (
         <RecipeExcerpt 
         key={recipe.id} 
         recipe={recipe}
